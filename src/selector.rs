@@ -479,6 +479,14 @@ impl<'i> cssparser::ToCss for PseudoClass<'i> {
   }
 }
 
+impl<'i> ToCss for PseudoClass<'i> {
+    fn to_css<W>(&self, dest: &mut Printer<W>) -> Result<(), PrinterError>
+      where
+        W: std::fmt::Write {
+        self.to_css_with_context(dest, None)
+    }
+}
+
 impl<'a, 'i> ToCssWithContext<'a, 'i> for PseudoClass<'i> {
   fn to_css_with_context<W>(
     &self,
